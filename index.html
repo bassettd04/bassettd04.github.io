@@ -234,6 +234,10 @@
                     {
                         url: "Assets/Soundseeking/robot.jpeg",
                         caption: "Plan view of final robot design"
+                    },
+                    {
+                        url: "Assets/Soundseeking/test.mp4",
+                        caption: "Final assessment - finished 1st in class for speed and 2nd in class for accuracy"
                     }
                 ],
                 summary: "Lead engineer on a project to design and programme an autonomous robot capable of quickly and precisely triangulating high frequency acoustic signals using a multi-microphone array and real-time signal processing using an Arduino",
@@ -336,10 +340,25 @@
 
         function updateModalImage() {
             if (!currentProject || !currentProject.images.length) return;
-
-            const imgObj = currentProject.images[currentImageIndex];
-            document.getElementById('modalImage').src = imgObj.url;
-            document.getElementById('modalImageCaption').innerText = imgObj.caption || '';
+        
+            const mediaObj = currentProject.images[currentImageIndex];
+            const container = document.getElementById('modalImage').parentElement;
+            
+            // Check if file is an MP4 video
+            if (mediaObj.url.toLowerCase().endsWith('.mp4')) {
+                container.innerHTML = `
+                    <video id="modalImage" controls autoplay loop muted class="max-h-[300px] md:max-h-[360px] w-auto h-auto rounded-lg object-contain">
+                        <source src="${mediaObj.url}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                `;
+            } else {
+                container.innerHTML = `
+                    <img id="modalImage" src="${mediaObj.url}" alt="Project Media" class="max-h-[300px] md:max-h-[360px] w-auto h-auto object-contain transition-all duration-300" />
+                `;
+            }
+        
+            document.getElementById('modalImageCaption').innerText = mediaObj.caption || '';
             document.getElementById('imageTracker').innerText = `${currentImageIndex + 1} / ${currentProject.images.length}`;
         }
 
