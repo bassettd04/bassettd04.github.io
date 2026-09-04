@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mechanical & Systems Engineering Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased selection:bg-cyan-500 selection:text-slate-900">
+
+    <nav class="fixed top-0 w-full bg-slate-900/90 backdrop-blur border-b border-slate-800 z-50">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <span class="text-xl font-bold tracking-tight text-cyan-400">[ Your Name ]</span>
+            <div class="space-x-6 text-sm font-medium text-slate-300">
+                <a href="#projects" class="hover:text-cyan-400 transition">Projects</a>
+                <a href="#skills" class="hover:text-cyan-400 transition">Skills</a>
+                <a href="#contact" class="hover:text-cyan-400 transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="min-h-screen flex items-center justify-center pt-20 px-6">
+        <div class="max-w-3xl text-center space-y-6">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight">
+                Mechanical Engineer <br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                    bridging hardware & code.
+                </span>
+            </h1>
+            <p class="text-slate-400 text-lg md:text-xl leading-relaxed">
+                Specializing in mechanical design, advanced composite manufacturing, materials testing, and embedded control systems. 
+            </p>
+            <div class="flex justify-center gap-4 pt-4">
+                <a href="#projects" class="bg-cyan-500 text-slate-900 font-semibold px-6 py-3 rounded-lg hover:bg-cyan-400 transition">
+                    View Work
+                </a>
+                <a href="#contact" class="border border-slate-700 font-semibold px-6 py-3 rounded-lg hover:border-cyan-400 transition">
+                    Get in Touch
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-20 px-6 max-w-5xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+            <div>
+                <h2 class="text-3xl font-bold tracking-tight">Featured Projects</h2>
+                <p class="text-slate-400 mt-2">Filter by domain to see relevant work.</p>
+            </div>
+            
+            <div class="flex flex-wrap gap-2 bg-slate-800 p-1.5 rounded-xl border border-slate-700">
+                <button onclick="filterProjects('all')" class="filter-btn active px-4 py-2 rounded-lg text-sm font-medium transition bg-cyan-500 text-slate-900" data-filter="all">All</button>
+                <button onclick="filterProjects('software')" class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition text-slate-400 hover:text-white" data-filter="software">Software & Embedded</button>
+                <button onclick="filterProjects('mechanical')" class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition text-slate-400 hover:text-white" data-filter="mechanical">Mechanical & Materials</button>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            
+            <div class="project-card software bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 space-y-4 hover:border-slate-500 transition">
+                <div class="flex justify-between items-start">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-full">
+                        Embedded Systems
+                    </span>
+                    <i class="fa-solid fa-robot text-slate-500 text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold">Arduino Sound-Seeking Robot</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    Designed and programmed an autonomous mobile robot capable of triangulating high-frequency acoustic signals using a multi-microphone array and real-time signal processing on Arduino.
+                </p>
+                <div class="flex flex-wrap gap-2 pt-2">
+                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">C++ / C</span>
+                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Arduino</span>
+                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Signal Processing</span>
+                </div>
+            </div>
+
+            <div class="project-card mechanical bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 space-y-4 hover:border-slate-500 transition">
+                <div class="flex justify-between items-start">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-full">
+                        Aerodynamics & Manufacturing
+                    </span>
+                    <i class="fa-solid fa-car text-slate-500 text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold">Formula Student Bodywork Manufacturing</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    Engineered lightweight composite bodywork panels for a race car. Managed the complete lifecycle from surface modeling in CAD to mold creation, vacuum bagging, and final layup.
+                </p>
+                <div class="flex flex-wrap gap-2 pt-2">
+                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">CAD / SolidWorks</span>
+                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Composites</span>
+                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Manufacturing</span>
+                </div>
+            </div>
+
+            <div class="project-card mechanical bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 space-y-4 hover:border-slate-500 transition">
+                <div class="flex justify-between items-start">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-full">
+                        Materials Science
+                    </span>
+                    <i class="fa-solid fa-microscope text-slate-500 text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold">Aluminium Alloy Research Project</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    Conducted experimental stress-strain analysis, tensile testing, and microstructural inspection on heat-treated aluminium alloys to evaluate yield performance and failure mechanisms.
+                </p>
+                <div class="flex flex-wrap gap-2 pt-2">
+                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">FEA</span>
+                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Tensile Testing</span>
+                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Metallography</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="skills" class="py-20 px-6 max-w-5xl mx-auto border-t border-slate-800">
+        <h2 class="text-3xl font-bold tracking-tight mb-8">Technical Toolkit</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-slate-800/30 border border-slate-800 p-6 rounded-xl">
+                <h3 class="text-lg font-semibold text-cyan-400 mb-4">Mechanical & Design</h3>
+                <ul class="space-y-2 text-slate-300 text-sm">
+                    <li>• SolidWorks & CAD Surface Modeling</li>
+                    <li>• Composite Layup & Tooling Design</li>
+                    <li>• Tensile Testing & Materials Characterization</li>
+                    <li>• Finite Element Analysis (FEA)</li>
+                </ul>
+            </div>
+            <div class="bg-slate-800/30 border border-slate-800 p-6 rounded-xl">
+                <h3 class="text-lg font-semibold text-cyan-400 mb-4">Software & Hardware</h3>
+                <ul class="space-y-2 text-slate-300 text-sm">
+                    <li>• Embedded C / C++ (Arduino, Microcontrollers)</li>
+                    <li>• Python (Data Analysis & Scripting)</li>
+                    <li>• MATLAB / Simulink</li>
+                    <li>• Git & Version Control</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 px-6 max-w-5xl mx-auto text-center border-t border-slate-800">
+        <h2 class="text-3xl font-bold tracking-tight">Let's Connect</h2>
+        <p class="text-slate-400 mt-2 mb-8">Open to mechanical, mechatronics, and software engineering opportunities.</p>
+        <div class="flex justify-center gap-6 text-xl">
+            <a href="mailto:your.email@example.com" class="text-slate-400 hover:text-cyan-400 transition"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://linkedin.com" target="_blank" class="text-slate-400 hover:text-cyan-400 transition"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://github.com" target="_blank" class="text-slate-400 hover:text-cyan-400 transition"><i class="fa-brands fa-github"></i></a>
+        </div>
+    </section>
+
+    <script>
+        function filterProjects(category) {
+            const cards = document.querySelectorAll('.project-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => {
+                if (btn.getAttribute('data-filter') === category) {
+                    btn.classList.add('bg-cyan-500', 'text-slate-900');
+                    btn.classList.remove('text-slate-400');
+                } else {
+                    btn.classList.remove('bg-cyan-500', 'text-slate-900');
+                    btn.classList.add('text-slate-400');
+                }
+            });
+
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
