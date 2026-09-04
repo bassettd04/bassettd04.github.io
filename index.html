@@ -102,6 +102,20 @@
                     <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Materials Testing</span>
                 </div>
             </div>
+
+            <div onclick="openModal('vibrations')" class="project-card mechanical cursor-pointer bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 space-y-4 hover:border-cyan-500/50 hover:bg-slate-800/80 transition group">
+                <div class="flex justify-between items-start">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-full">Vibration Analysis</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-slate-500 group-hover:text-cyan-400 transition"></i>
+                </div>
+                <h3 class="text-xl font-bold group-hover:text-cyan-400 transition">Vibration Analysis of an Electron Beamline</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Collaborated with beamline scientists to investigate the primary sources of vibrations on an electron beamline using state-of-the-art portable vibration analysis tools. This was followed by analysis of large sets of vibration data using Python to perform integration calculations and output PSD graphs.</p>
+                <div class="flex flex-wrap gap-2 pt-2">
+                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Vibration Analysis</span>
+                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Python</span>
+                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Experimental Methods</span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -260,6 +274,26 @@
                     "<b>Experimental Testing:</b> Prepared standardised compressive test specimens and performed mechanical loading under vacuum using an Instron machine and a custom hermetic chamber.",
                     "<b>Microstructural Analysis:</b> Evaluated grain boundaries and precipitate distribution via optical and electron microscopy.",
                     "<b>Sample Analysis:</b> Investigated the effect of heat treatments on the hardness values and microstructure of aluminium alloy 6082 across a range of exposure times."
+                ]
+            },
+            vibrations: {
+                title: "Vibration Analysis of an Electron Beamline",
+                tags: ["Vibration Analysis", "Python", "Experimental Methods", "Cross-Department Collaboration"],
+                images: [
+                    { 
+                        url: "Assets/STFC/beamline.jpeg", 
+                        caption: "A section of the CLARA beamline that was tested for high vibrations" 
+                    },
+                    { 
+                        url: "Assets/STFC/tutorial.mov", 
+                        caption: "A clip from the tutorial video on the CoCo-80X Signal Analyser" 
+                    },
+                ],
+                summary: "This was my primary project for the last 4 months of my time at the STFC where I aimed to develop procedural documentation for the Crystal Instruments CoCo-80X Signal Analyser for future use within the technology department. I was also tasked with creating a tutorial video on the device and a Python script with a GUI for others to quickly and easily analyse large data sets of vibration data and represent these graphically. As part of this I also worked to analyse vibrations on the CLARA electron beamline.",
+                highlights: [
+                    "<b>Learning and Documentation Phase:</b> Firstly, I built upon my knowledge of vibration theory and PSDs. I then worked to develop an understanding of how to use the signal analyser to gain the most accurate results during experimentation. During this process I created a procedural document for other STFC staff members to use in the future.",
+                    "<b>Testing & Validation:</b> Triaxial accelerometers were used to characterise vibrations along the beamline and down a waveguide that was suspected to be a major transmitter of vibrations from surrounding pumps. These tests were performed at different times of the day to ensure background noise was not affecting the result.",
+                    "<b>Outcome:</b> Results were analysed using the Python analysis code and the vibrations were deemed to be above the acceptable threshold, leading to the relocation of a nearby scroll pump.
                 ]
             }
         };
