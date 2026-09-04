@@ -46,7 +46,7 @@
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
                 <h2 class="text-3xl font-bold tracking-tight">Featured Projects</h2>
-                <p class="text-slate-400 mt-2">Filter by domain to see relevant work.</p>
+                <p class="text-slate-400 mt-2">Filter by domain or click any project to view full documentation.</p>
             </div>
             
             <div class="flex flex-wrap gap-2 bg-slate-800 p-1.5 rounded-xl border border-slate-700">
@@ -58,32 +58,34 @@
 
         <div class="grid md:grid-cols-2 gap-8">
             
-            <div class="project-card software bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 space-y-4 hover:border-slate-500 transition">
+            <!-- Project 1 -->
+            <div onclick="openModal('robot')" class="project-card software cursor-pointer bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 space-y-4 hover:border-cyan-500/50 hover:bg-slate-800/80 transition group">
                 <div class="flex justify-between items-start">
                     <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-full">
                         Embedded Systems
                     </span>
-                    <i class="fa-solid fa-robot text-slate-500 text-xl"></i>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-slate-500 group-hover:text-cyan-400 transition"></i>
                 </div>
-                <h3 class="text-xl font-bold">Arduino Sound-Seeking Robot</h3>
+                <h3 class="text-xl font-bold group-hover:text-cyan-400 transition">Arduino Sound-Seeking Robot</h3>
                 <p class="text-slate-400 text-sm leading-relaxed">
-                    Took the role of lead on a project to design and programme an autonomous mobile robot capable of triangulating high-frequency acoustic signals using a multi-microphone array and real-time signal processing on Arduino.
+                    Led a project to design and programme an autonomous robot capable of quickly and precisely triangulating high frequency acoustic signals using a multi-microphone array and real-time signal processing using an Arduino
                 </p>
                 <div class="flex flex-wrap gap-2 pt-2">
-                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">C++ / C</span>
+                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">C++</span>
                     <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Arduino</span>
                     <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Signal Processing</span>
                 </div>
             </div>
 
-            <div class="project-card mechanical bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 space-y-4 hover:border-slate-500 transition">
+            <!-- Project 2 -->
+            <div onclick="openModal('formula')" class="project-card mechanical cursor-pointer bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 space-y-4 hover:border-cyan-500/50 hover:bg-slate-800/80 transition group">
                 <div class="flex justify-between items-start">
                     <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-full">
                         Aerodynamics & Manufacturing
                     </span>
-                    <i class="fa-solid fa-car text-slate-500 text-xl"></i>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-slate-500 group-hover:text-cyan-400 transition"></i>
                 </div>
-                <h3 class="text-xl font-bold">Formula Student Bodywork Manufacturing</h3>
+                <h3 class="text-xl font-bold group-hover:text-cyan-400 transition">Formula Student Bodywork Manufacturing</h3>
                 <p class="text-slate-400 text-sm leading-relaxed">
                     Engineered lightweight composite aerodynamic components for a race car. Managed the complete lifecycle from surface modelling in CAD to epoxy tooling board mould creation, carbon layup and integration.
                 </p>
@@ -94,21 +96,22 @@
                 </div>
             </div>
 
-            <div class="project-card mechanical bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 space-y-4 hover:border-slate-500 transition">
+            <!-- Project 3 -->
+            <div onclick="openModal('alloy')" class="project-card mechanical cursor-pointer bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 space-y-4 hover:border-cyan-500/50 hover:bg-slate-800/80 transition group">
                 <div class="flex justify-between items-start">
                     <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-full">
                         Materials Science
                     </span>
-                    <i class="fa-solid fa-microscope text-slate-500 text-xl"></i>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-slate-500 group-hover:text-cyan-400 transition"></i>
                 </div>
-                <h3 class="text-xl font-bold">Aluminium Alloy Research Project</h3>
+                <h3 class="text-xl font-bold group-hover:text-cyan-400 transition">Aluminium Alloy Research Project</h3>
                 <p class="text-slate-400 text-sm leading-relaxed">
-                    Conducted experimental stress-strain analysis, tensile testing, and microstructural inspection on heat-treated aluminium alloys to evaluate yield performance and failure mechanisms.
+                    Conducted thermal cycling and mechanical loading on aluminium alloy 6082 samples that had undergone various heat treatments to evaluate their performance within low earth orbit conditions.
                 </p>
                 <div class="flex flex-wrap gap-2 pt-2">
-                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">FEA</span>
-                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Tensile Testing</span>
-                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Metallography</span>
+                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Alloy Heat Treatment</span>
+                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Vacuum Design</span>
+                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Materials Testing</span>
                 </div>
             </div>
 
@@ -121,19 +124,19 @@
             <div class="bg-slate-800/30 border border-slate-800 p-6 rounded-xl">
                 <h3 class="text-lg font-semibold text-cyan-400 mb-4">Mechanical & Design</h3>
                 <ul class="space-y-2 text-slate-300 text-sm">
-                    <li>• SolidWorks & CAD Surface Modeling</li>
+                    <li>• SolidWorks, Solidedge and Creo CAD Systems</li>
                     <li>• Composite Layup & Tooling Design</li>
-                    <li>• Tensile Testing & Materials Characterization</li>
-                    <li>• Finite Element Analysis (FEA)</li>
+                    <li>• Vacuum Chamber Design & Materials Characterisation</li>
+                    <li>• Simulation Optimised Design (CFD, FEA)</li>
                 </ul>
             </div>
             <div class="bg-slate-800/30 border border-slate-800 p-6 rounded-xl">
                 <h3 class="text-lg font-semibold text-cyan-400 mb-4">Software & Hardware</h3>
                 <ul class="space-y-2 text-slate-300 text-sm">
-                    <li>• Embedded C / C++ (Arduino, Microcontrollers)</li>
+                    <li>• C++ (Arduino, Microcontrollers)</li>
                     <li>• Python (Data Analysis & Scripting)</li>
                     <li>• MATLAB / Simulink</li>
-                    <li>• Git & Version Control</li>
+                    <li>• Version Control through GitHub</li>
                 </ul>
             </div>
         </div>
@@ -143,13 +146,130 @@
         <h2 class="text-3xl font-bold tracking-tight">Let's Connect</h2>
         <p class="text-slate-400 mt-2 mb-8">Open to mechanical, mechatronics, and software engineering opportunities.</p>
         <div class="flex justify-center gap-6 text-xl">
-            <a href="mailto:your.email@example.com" class="text-slate-400 hover:text-cyan-400 transition"><i class="fa-solid fa-envelope"></i></a>
-            <a href="https://linkedin.com" target="_blank" class="text-slate-400 hover:text-cyan-400 transition"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="https://github.com" target="_blank" class="text-slate-400 hover:text-cyan-400 transition"><i class="fa-brands fa-github"></i></a>
+            <a href="mailto:danielbassett1706@gmail.com" class="text-slate-400 hover:text-cyan-400 transition"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://www.linkedin.com/in/daniel-bassett-5aa94621b/" target="_blank" class="text-slate-400 hover:text-cyan-400 transition"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://github.com/bassettd04" target="_blank" class="text-slate-400 hover:text-cyan-400 transition"><i class="fa-brands fa-github"></i></a>
         </div>
     </section>
 
+    <!-- Modal Popup Overlay -->
+    <div id="projectModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md hidden z-50 flex items-center justify-center p-4 md:p-8">
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden flex flex-col md:flex-row relative shadow-2xl">
+            
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 text-slate-400 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-slate-700/50 w-9 h-9 rounded-full flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- Left Panel: Media / Image Gallery -->
+            <div class="w-full md:w-1/2 bg-slate-900/50 p-6 flex flex-col justify-between relative border-b md:border-b-0 md:border-r border-slate-800 min-h-[280px] md:min-h-[480px]">
+                <!-- Main Image Container -->
+                <div class="w-full h-full flex items-center justify-center overflow-hidden rounded-xl bg-slate-950 border border-slate-800/80 relative group">
+                    <img id="modalImage" src="" alt="Project Media" class="w-full h-full object-contain p-2 transition-all duration-300" />
+                    
+                    <!-- Caption Overlay -->
+                    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950/90 to-transparent p-4 text-xs text-slate-400" id="modalImageCaption">
+                        <!-- Dynamic Image Caption -->
+                    </div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="flex justify-between items-center pt-4">
+                    <button onclick="prevImage()" class="text-slate-400 hover:text-cyan-400 text-xl px-3 py-1 rounded bg-slate-800/40 hover:bg-slate-800 border border-slate-700/50 transition">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <span id="imageTracker" class="text-xs text-slate-500 font-mono">1 / 1</span>
+                    <button onclick="nextImage()" class="text-slate-400 hover:text-cyan-400 text-xl px-3 py-1 rounded bg-slate-800/40 hover:bg-slate-800 border border-slate-700/50 transition">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Panel: Text Content -->
+            <div class="w-full md:w-1/2 p-6 md:p-8 overflow-y-auto space-y-6">
+                <div>
+                    <h3 id="modalTitle" class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">Project Title</h3>
+                    <div id="modalTags" class="flex flex-wrap gap-2 mt-3">
+                        <!-- Dynamic Tags -->
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-cyan-400">Executive Summary</h4>
+                    <p id="modalSummary" class="text-slate-300 text-sm leading-relaxed">
+                        Project summary will load here...
+                    </p>
+                </div>
+
+                <div class="space-y-2 border-t border-slate-800/80 pt-4">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-cyan-400">Key Highlights</h4>
+                    <ul id="modalHighlights" class="space-y-2 text-slate-300 text-sm">
+                        <!-- Dynamic Bullet Points -->
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script>
+        // Project Details Database
+        const projectData = {
+            robot: {
+                title: "Arduino Sound-Seeking Robot",
+                tags: ["Embedded Systems", "C++", "Arduino", "Signal Processing", "Mechanical Design"],
+                images: [
+                    {
+                        url: "https://via.placeholder.com/800x600/0f172a/38bdf8?text=Sound-Seeking+Robot+CAD",
+                        caption: "Microphone array arrangement and CAD layout"
+                    }
+                ],
+                summary: "Lead engineer on a project to design and programme an autonomous robot capable of quickly and precisely triangulating high frequency acoustic signals using a multi-microphone array and real-time signal processing using an Arduino",
+                highlights: [
+                    "<b>Acoustic Triangulation:</b> Implemented a multi-microphone array running time-difference-of-arrival (TDOA) algorithms on an Arduino platform.",
+                    "<b>Signal Processing:</b> Developed active band-pass filtering to isolate target audio signals from ambient motor vibration.",
+                    "<b>Custom Chassis:</b> Modelled and manufactured a lightweight chassis optimised for component accessibility, using 3D printed acoustic horns to improve the microphone performance."
+                ]
+            },
+            formula: {
+                title: "Formula Student Bodywork Manufacturing",
+                tags: ["Aerodynamics", "CAD / SolidWorks", "Composites", "Manufacturing"],
+                images: [
+                    {
+                        url: "https://via.placeholder.com/800x600/0f172a/38bdf8?text=Carbon+Fiber+Bodywork",
+                        caption: "Composite panel post-cure and vehicle integration"
+                    }
+                ],
+                summary: "Engineered lightweight composite aerodynamic components for a high-performance Formula Student race car. Managed the complete manufacturing workflow from surface modeling to final carbon layup.",
+                highlights: [
+                    "<b>Surface Modeling:</b> Used a combination of modelling techniques in solidworks to transform the surface model provided by the aerodynamics department into a production ready CAD model. ",
+                    "<b>Tooling & Fabrication:</b> Machined epoxy tooling board molds and performed carbon-fibre layup using prepreg and an autoclave.",
+                    "<b>Weight Optimization:</b> Reduced overall package mass by 18% while maintaining structural rigidity required under high aerodynamic loads.",
+                    "<b>Package Integration:</b> Successfully designed, aided with CFD simulations, lightweight mounts for all aerodynamic components to be fitted to the chassis."
+                ]
+            },
+            alloy: {
+                title: "Aluminium Alloy Research Project",
+                tags: ["Materials Science", "Alloy Heat Treatment", "Vacuum Design", "Materials Testing"],
+                images: [
+                    {
+                        url: "https://via.placeholder.com/800x600/0f172a/38bdf8?text=Microstructural+Inspection",
+                        caption: "Stress-strain curves and SEM grain boundary inspection"
+                    }
+                ],
+                summary: "Designed a hermetic chamber to mechanically load samples under vacuum. Conducted microscopic imaging and hardness tests on heat-treated 6000-series aluminium alloys to analyse their performance under low earth orbit conditions and the necessity, or not, of heat treating satellite structures prior to launch.",
+                highlights: [
+                    "<b>Experimental Testing:</b> Prepared standardized compressive test specimens and performed mechanical loading under vacuum using an Instron machine and a custom hermetic chamber.",
+                    "<b>Microstructural Analysis:</b> Evaluated grain boundaries and precipitate distribution via optical and electron microscopy.",
+                    "<b>Sample Analysis:</b> Investigated the effect of heat treatments on the hardness values and microstructure of aluminium alloy 6082 across a range of exposure times."
+                ]
+            }
+        };
+
+        let currentProject = null;
+        let currentImageIndex = 0;
+
         function filterProjects(category) {
             const cards = document.querySelectorAll('.project-card');
             const buttons = document.querySelectorAll('.filter-btn');
@@ -172,6 +292,67 @@
                 }
             });
         }
+
+        function openModal(projectId) {
+            currentProject = projectData[projectId];
+            if (!currentProject) return;
+
+            currentImageIndex = 0;
+
+            // Render Title & Summary
+            document.getElementById('modalTitle').innerText = currentProject.title;
+            document.getElementById('modalSummary').innerText = currentProject.summary;
+
+            // Render Tags
+            const tagsContainer = document.getElementById('modalTags');
+            tagsContainer.innerHTML = currentProject.tags.map(tag => 
+                `<span class="text-xs bg-slate-900 border border-slate-800 px-3 py-1 rounded-full text-slate-400 font-mono">${tag}</span>`
+            ).join('');
+
+            // Render Highlights Bullet Points
+            const highlightsContainer = document.getElementById('modalHighlights');
+            highlightsContainer.innerHTML = currentProject.highlights.map(item => 
+                `<li class="flex items-start gap-2"><span class="text-cyan-400 font-bold">•</span><span>${item}</span></li>`
+            ).join('');
+
+            // Render Image
+            updateModalImage();
+
+            // Show Overlay
+            document.getElementById('projectModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateModalImage() {
+            if (!currentProject || !currentProject.images.length) return;
+
+            const imgObj = currentProject.images[currentImageIndex];
+            document.getElementById('modalImage').src = imgObj.url;
+            document.getElementById('modalImageCaption').innerText = imgObj.caption || '';
+            document.getElementById('imageTracker').innerText = `${currentImageIndex + 1} / ${currentProject.images.length}`;
+        }
+
+        function nextImage() {
+            if (!currentProject) return;
+            currentImageIndex = (currentImageIndex + 1) % currentProject.images.length;
+            updateModalImage();
+        }
+
+        function prevImage() {
+            if (!currentProject) return;
+            currentImageIndex = (currentImageIndex - 1 + currentProject.images.length) % currentProject.images.length;
+            updateModalImage();
+        }
+
+        function closeModal() {
+            document.getElementById('projectModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close when clicking outside content box
+        document.getElementById('projectModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
     </script>
 </body>
 </html>
