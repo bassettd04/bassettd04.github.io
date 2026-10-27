@@ -1,229 +1,695 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mechanical & Systems Engineering Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="description" content="Daniel Bassett, Mechanical Engineer. Mechanical design, composite manufacturing, materials testing, and embedded control systems.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --paper: #EEF1EF;
+            --paper-raised: #F6F8F7;
+            --ink: #17222C;
+            --ink-soft: #46535C;
+            --rule: #97A3A7;
+            --grid: #D6DDDC;
+            --cobalt: #1E4FD8;
+            --cobalt-wash: #DDE5FA;
+
+            --frame: 28px;
+            --measure: 66ch;
+            --sheet: 1120px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+        body {
+            margin: 0;
+            background-color: var(--paper);
+            background-image:
+                linear-gradient(var(--grid) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+                linear-gradient(color-mix(in srgb, var(--grid) 45%, transparent) 1px, transparent 1px),
+                linear-gradient(90deg, color-mix(in srgb, var(--grid) 45%, transparent) 1px, transparent 1px);
+            background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+            background-attachment: fixed;
+            color: var(--ink);
+            font-family: "Archivo", system-ui, sans-serif;
+            font-size: 17px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        ::selection { background: var(--cobalt); color: var(--paper); }
+        a { color: inherit; }
+        img, video { display: block; max-width: 100%; }
+        :focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; }
+
+        /* ---------- Sheet frame with zone references ---------- */
+        .frame {
+            position: fixed;
+            inset: 10px;
+            border: 1.5px solid var(--ink);
+            pointer-events: none;
+            z-index: 40;
+        }
+        .frame::after {
+            content: "";
+            position: absolute;
+            inset: calc(var(--frame) - 10px);
+            border: 0.75px solid var(--rule);
+        }
+        .zones {
+            position: absolute;
+            display: flex;
+            justify-content: space-around;
+            font-size: 11px;
+            font-variation-settings: "wdth" 80;
+            color: var(--ink-soft);
+        }
+        .zones--top { top: 0; left: 18px; right: 18px; height: 18px; align-items: center; }
+        .zones--left { left: 0; top: 18px; bottom: 18px; width: 18px; flex-direction: column; align-items: center; }
+        .zones span { display: grid; place-items: center; }
+
+        .sheet-body { padding: var(--frame); }
+        .sheet-body::before {
+            /* masks content scrolling above the sticky header */
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: var(--frame);
+            background: var(--paper);
+            z-index: 29;
+        }
+
+        /* ---------- Header: title strip ---------- */
+        .strip {
+            position: sticky;
+            top: var(--frame);
+            z-index: 30;
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            max-width: var(--sheet);
+            margin: 0 auto;
+            background: var(--paper-raised);
+            border: 1.5px solid var(--ink);
+        }
+        .strip__name {
+            padding: 12px 20px;
+            font-weight: 800;
+            font-variation-settings: "wdth" 120;
+            letter-spacing: 0.01em;
+            text-decoration: none;
+            border-right: 1px solid var(--ink);
+        }
+        .strip nav { display: flex; }
+        .strip nav a {
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            border-left: 1px solid var(--rule);
+        }
+        .strip nav a:hover { background: var(--cobalt); color: var(--paper); }
+
+        main, .sheet-foot { max-width: var(--sheet); margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px); }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            min-height: calc(100svh - 2 * var(--frame) - 52px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 72px 0 56px;
+        }
+        .dimensioned { display: grid; width: max-content; max-width: 100%; }
+        .hero h1 {
+            margin: 0;
+            font-size: clamp(52px, 11.5vw, 156px);
+            line-height: 0.88;
+            font-weight: 800;
+            font-variation-settings: "wdth" 125;
+            letter-spacing: -0.02em;
+        }
+        .hero h1 .line { display: block; }
+
+        .dim {
+            position: relative;
+            height: 64px;
+            margin: 6px 0 0;
+            color: var(--cobalt);
+        }
+        .dim::before, .dim::after {
+            /* extension lines */
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 1px;
+            height: 44px;
+            background: currentColor;
+        }
+        .dim::before { left: 0; }
+        .dim::after { right: 0; }
+        .dim__line {
+            position: absolute;
+            left: 0; right: 0; top: 30px;
+            height: 1px;
+            background: currentColor;
+            transform-origin: center;
+            animation: draw 900ms cubic-bezier(.6,0,.2,1) 250ms both;
+        }
+        .dim__line::before, .dim__line::after {
+            /* arrowheads */
+            content: "";
+            position: absolute;
+            top: -4px;
+            border-style: solid;
+            border-width: 4.5px 0;
+            border-color: transparent;
+        }
+        .dim__line::before { left: 0; border-right: 13px solid currentColor; border-left: 0; }
+        .dim__line::after { right: 0; border-left: 13px solid currentColor; border-right: 0; }
+        .dim__label {
+            position: absolute;
+            left: 50%; top: 30px;
+            transform: translate(-50%, -50%);
+            padding: 0 18px;
+            background: var(--paper);
+            font-size: clamp(17px, 2.6vw, 30px);
+            font-weight: 600;
+            font-variation-settings: "wdth" 100;
+            white-space: nowrap;
+            animation: appear 400ms ease-out 900ms both;
+        }
+        @keyframes draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+        @keyframes appear { from { opacity: 0; } to { opacity: 1; } }
+        @media (prefers-reduced-motion: reduce) {
+            .dim__line, .dim__label { animation: none; }
+        }
+
+        .hero__lede {
+            max-width: 40ch;
+            margin: 36px 0 0;
+            font-size: clamp(19px, 2vw, 23px);
+            line-height: 1.45;
+            color: var(--ink-soft);
+        }
+        .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 22px;
+            border: 1.5px solid var(--ink);
+            background: var(--paper-raised);
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .btn:hover { background: var(--ink); color: var(--paper); }
+        .btn--primary { background: var(--cobalt); border-color: var(--cobalt); color: var(--paper); }
+        .btn--primary:hover { background: var(--ink); border-color: var(--ink); }
+
+        /* ---------- Section heads ---------- */
+        section { padding: 88px 0; }
+        .section-head {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 24px;
+            padding-bottom: 20px;
+            margin-bottom: 0;
+            border-bottom: 1.5px solid var(--ink);
+        }
+        h2 {
+            margin: 0;
+            font-size: clamp(32px, 4.6vw, 52px);
+            line-height: 1;
+            font-weight: 800;
+            font-variation-settings: "wdth" 112;
+            letter-spacing: -0.01em;
+        }
+        .section-head p { margin: 10px 0 0; color: var(--ink-soft); max-width: var(--measure); }
+
+        /* ---------- Filter ---------- */
+        .filter { display: flex; flex-wrap: wrap; border: 1.5px solid var(--ink); background: var(--paper-raised); }
+        .filter button {
+            font: inherit;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 9px 16px;
+            border: 0;
+            border-left: 1px solid var(--rule);
+            background: transparent;
+            color: var(--ink);
+            cursor: pointer;
+        }
+        .filter button:first-child { border-left: 0; }
+        .filter button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+        .filter button:not([aria-pressed="true"]):hover { background: var(--cobalt-wash); }
+
+        /* ---------- Project register ---------- */
+        .register { list-style: none; margin: 0; padding: 0; }
+        .register li { border-bottom: 1px solid var(--rule); }
+        .register li[hidden] { display: none; }
+        .project {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 36px;
+            width: 100%;
+            padding: 32px 0;
+            border: 0;
+            background: none;
+            text-align: left;
+            font: inherit;
+            color: inherit;
+            cursor: pointer;
+        }
+        .project__fig {
+            position: relative;
+            aspect-ratio: 4 / 3;
+            border: 1px solid var(--ink);
+            background: var(--paper-raised);
+            overflow: hidden;
+        }
+        .project__fig img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: grayscale(1) contrast(1.05);
+            mix-blend-mode: multiply;
+            transition: filter 300ms ease;
+        }
+        .project:hover .project__fig img, .project:focus-visible .project__fig img { filter: none; mix-blend-mode: normal; }
+        .project__domain { margin: 0 0 6px; font-size: 15px; font-weight: 600; color: var(--cobalt); }
+        .project h3 {
+            margin: 0;
+            font-size: clamp(24px, 2.8vw, 32px);
+            line-height: 1.1;
+            font-weight: 700;
+            font-variation-settings: "wdth" 108;
+        }
+        .project:hover h3 { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; text-decoration-color: var(--cobalt); }
+        .project__text { margin: 14px 0 0; max-width: var(--measure); color: var(--ink-soft); }
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; padding: 0; list-style: none; }
+        .tags li, .tags span {
+            font-size: 13px;
+            font-weight: 500;
+            padding: 3px 10px;
+            border: 1px solid var(--rule);
+            background: var(--paper-raised);
+            border-radius: 999px;
+        }
+        .project__open { margin-top: 18px; display: inline-flex; gap: 8px; align-items: center; font-size: 15px; font-weight: 600; }
+
+        /* ---------- About ---------- */
+        .about { display: grid; grid-template-columns: minmax(0, 1fr); }
+        .about p {
+            margin: 32px 0 0;
+            max-width: 68ch;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        /* ---------- Bill of materials ---------- */
+        .bom { width: 100%; border-collapse: collapse; margin-top: 0; font-size: 17px; }
+        .bom th, .bom td { text-align: left; padding: 13px 16px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+        .bom thead th { font-size: 14px; font-weight: 600; color: var(--ink-soft); border-bottom: 1px solid var(--ink); background: var(--paper-raised); }
+        .bom tbody th[scope="rowgroup"] {
+            padding-top: 26px;
+            font-size: 20px;
+            font-weight: 700;
+            font-variation-settings: "wdth" 108;
+            color: var(--cobalt);
+            border-bottom: 1px solid var(--ink);
+        }
+        .bom .item { width: 72px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+        .bom .item span {
+            display: inline-grid; place-items: center;
+            width: 28px; height: 28px;
+            border: 1px solid var(--ink);
+            border-radius: 50%;
+            font-size: 13px;
+            color: var(--ink);
+            background: var(--paper-raised);
+        }
+
+        /* ---------- Contact title block ---------- */
+        .titleblock {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            border: 1.5px solid var(--ink);
+            background: var(--paper-raised);
+            margin-top: 0;
+        }
+        .titleblock__main { padding: 36px; border-right: 1px solid var(--ink); }
+        .titleblock__main p { margin: 14px 0 0; color: var(--ink-soft); font-size: 19px; max-width: 40ch; }
+        .titleblock__links { display: grid; }
+        .titleblock__links a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 0 28px;
+            min-height: 64px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px solid var(--rule);
+        }
+        .titleblock__links a:last-child { border-bottom: 0; }
+        .titleblock__links a i { width: 22px; font-size: 20px; color: var(--cobalt); }
+        .titleblock__links a:hover { background: var(--cobalt); color: var(--paper); }
+        .titleblock__links a:hover i { color: var(--paper); }
+
+        .sheet-foot { padding-bottom: 40px; font-size: 14px; color: var(--ink-soft); }
+
+        /* ---------- Project detail sheet ---------- */
+        dialog.detail {
+            width: min(1180px, calc(100vw - 32px));
+            max-height: calc(100svh - 32px);
+            padding: 0;
+            border: 1.5px solid var(--ink);
+            background: var(--paper-raised);
+            color: var(--ink);
+            overflow: hidden;
+        }
+        dialog.detail[open] { display: grid; grid-template-columns: 1.1fr 1fr; grid-template-rows: minmax(0, 1fr); height: min(760px, calc(100svh - 32px)); animation: open 220ms ease-out; }
+        dialog.detail::backdrop { background: rgb(23 34 44 / 0.72); }
+        @keyframes open { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+        @media (prefers-reduced-motion: reduce) { dialog.detail[open] { animation: none; } }
+
+        .detail__media {
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--ink);
+            background: var(--paper);
+            min-height: 0;
+        }
+        .detail__stage {
+            flex: 1;
+            display: grid;
+            place-items: center;
+            min-height: 320px;
+            padding: 20px;
+        }
+        .detail__stage img, .detail__stage video { max-height: min(56svh, 520px); width: auto; height: auto; object-fit: contain; border: 1px solid var(--rule); background: var(--paper-raised); }
+        .detail__caption { margin: 0; padding: 0 24px 16px; font-size: 15px; color: var(--ink-soft); min-height: 3.2em; }
+        .detail__nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--ink);
+        }
+        .detail__nav button {
+            font: inherit;
+            width: 64px; height: 52px;
+            border: 0;
+            background: transparent;
+            color: var(--ink);
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .detail__nav button:first-child { border-right: 1px solid var(--rule); }
+        .detail__nav button:last-child { border-left: 1px solid var(--rule); }
+        .detail__nav button:hover { background: var(--cobalt); color: var(--paper); }
+        .detail__count { font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+        .detail__text { overflow-y: auto; padding: 36px 40px 40px; position: relative; }
+        .detail__close {
+            position: absolute; top: 14px; right: 14px;
+            width: 42px; height: 42px;
+            border: 1.5px solid var(--ink);
+            background: var(--paper-raised);
+            color: var(--ink);
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .detail__close:hover { background: var(--ink); color: var(--paper); }
+        .detail h3 {
+            margin: 0;
+            padding-right: 52px;
+            font-size: clamp(28px, 3vw, 38px);
+            line-height: 1.05;
+            font-weight: 800;
+            font-variation-settings: "wdth" 110;
+        }
+        .detail h4 {
+            margin: 28px 0 8px;
+            padding-top: 18px;
+            border-top: 1px solid var(--rule);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--cobalt);
+        }
+        .detail p, .detail li { font-size: 16px; line-height: 1.65; }
+        .detail p { margin: 0; }
+        .detail ul.highlights { margin: 0; padding: 0 0 0 1.1em; }
+        .detail ul.highlights li { margin-bottom: 10px; padding-left: 4px; }
+        .detail ul.highlights li::marker { color: var(--cobalt); }
+        .detail b { font-weight: 700; color: var(--ink); }
+        .detail__link { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--rule); }
+        .detail__link[hidden] { display: none; }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 860px) {
+            .project { grid-template-columns: 180px 1fr; gap: 24px; }
+            dialog.detail[open] { grid-template-columns: 1fr; grid-template-rows: auto auto; height: auto; overflow-y: auto; }
+            .detail__media { border-right: 0; border-bottom: 1px solid var(--ink); min-height: auto; }
+            .detail__stage { flex: none; }
+            .detail__text { overflow: visible; }
+            .detail__stage { min-height: 240px; }
+            .detail__stage img, .detail__stage video { max-height: 42svh; }
+            .titleblock { grid-template-columns: 1fr; }
+            .titleblock__main { border-right: 0; border-bottom: 1px solid var(--ink); }
+        }
+        @media (max-width: 640px) {
+            :root { --frame: 0px; }
+            .frame { display: none; }
+            body { font-size: 16px; }
+            .strip { top: 0; border-width: 0 0 1.5px; }
+            .strip__name { display: none; }
+            .strip nav { width: 100%; }
+            .strip nav a { flex: 1; justify-content: center; padding: 14px 4px; font-size: 14px; }
+            .strip nav a:first-child { border-left: 0; }
+            main, .sheet-foot { padding: 0 16px; }
+            .hero { min-height: auto; padding: 56px 0 40px; }
+            .dim { height: 52px; }
+            .dim::before, .dim::after { height: 34px; }
+            .dim__line, .dim__label { top: 24px; }
+            .dim__label { padding: 0 10px; }
+            section { padding: 64px 0; }
+            .filter { width: 100%; display: grid; grid-template-columns: auto 1fr 1fr; }
+            .filter button { padding: 10px 8px; font-size: 14px; }
+            .project { grid-template-columns: 1fr; gap: 16px; padding: 24px 0; }
+            .project__fig { aspect-ratio: 16 / 9; }
+            .bom th, .bom td { padding: 11px 8px; }
+            .bom .item { width: 44px; }
+            .titleblock__main { padding: 24px; }
+            .titleblock__links a { padding: 0 24px; }
+            dialog.detail { width: 100vw; max-width: 100vw; max-height: 100svh; height: 100svh; }
+            .detail__text { padding: 28px 20px 32px; }
+        }
+    </style>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans antialiased selection:bg-cyan-500 selection:text-slate-900">
+<body>
 
-    <nav class="fixed top-0 w-full bg-slate-900/90 backdrop-blur border-b border-slate-800 z-50">
-        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
-            <span class="text-xl font-bold tracking-tight text-cyan-400">Daniel Bassett</span>
-            <div class="space-x-6 text-sm font-medium text-slate-300">
-                <a href="#projects" class="hover:text-cyan-400 transition">Projects</a>
-                <a href="#about" class="hover:text-cyan-400 transition">About</a> <!-- Added Nav Link -->
-                <a href="#skills" class="hover:text-cyan-400 transition">Skills</a>
-                <a href="#contact" class="hover:text-cyan-400 transition">Contact</a>
-            </div>
-        </div>
-    </nav>
-
-    <section class="min-h-screen flex items-center justify-center pt-20 px-6">
-        <div class="max-w-3xl text-center space-y-6">
-            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight">
-                Daniel Bassett <br/>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
-                    Mechanical Engineer
-                </span>
-            </h1>
-            <p class="text-slate-400 text-lg md:text-xl leading-relaxed">
-                Specialising in mechanical design, composite manufacturing, materials testing, and embedded control systems. 
-            </p>
-            <div class="flex flex-wrap justify-center gap-4 pt-4">
-                <a href="#projects" class="bg-cyan-500 text-slate-900 font-semibold px-6 py-3 rounded-lg hover:bg-cyan-400 transition">
-                    View Work
-                </a>
-                <a href="Assets/resume.pdf" target="_blank" rel="noopener noreferrer" class="bg-slate-800 text-slate-100 border border-slate-700 font-semibold px-6 py-3 rounded-lg hover:border-cyan-400 hover:text-cyan-400 transition flex items-center gap-2">
-                    <i class="fa-solid fa-file-pdf text-cyan-400"></i> CV
-                </a>
-                <a href="#contact" class="border border-slate-700 font-semibold px-6 py-3 rounded-lg hover:border-cyan-400 transition">
-                    Get in Touch
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="py-20 px-6 max-w-5xl mx-auto">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-            <div>
-                <h2 class="text-3xl font-bold tracking-tight">Featured Projects</h2>
-                <p class="text-slate-400 mt-2">Filter by domain or click any project to view full documentation.</p>
-            </div>
-            
-            <div class="flex flex-wrap gap-2 bg-slate-800 p-1.5 rounded-xl border border-slate-700">
-                <button onclick="filterProjects('all')" class="filter-btn active px-4 py-2 rounded-lg text-sm font-medium transition bg-cyan-500 text-slate-900" data-filter="all">All</button>
-                <button onclick="filterProjects('software')" class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition text-slate-400 hover:text-white" data-filter="software">Software & Embedded</button>
-                <button onclick="filterProjects('mechanical')" class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition text-slate-400 hover:text-white" data-filter="mechanical">Mechanical & Materials</button>
-            </div>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-8">
-            <div onclick="openModal('robot')" class="project-card software cursor-pointer bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 space-y-4 hover:border-cyan-500/50 hover:bg-slate-800/80 transition group">
-                <div class="flex justify-between items-start">
-                    <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-full">Embedded Systems</span>
-                    <i class="fa-solid fa-arrow-up-right-from-square text-slate-500 group-hover:text-cyan-400 transition"></i>
-                </div>
-                <h3 class="text-xl font-bold group-hover:text-cyan-400 transition">Arduino Sound-Seeking Robot</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">Led a project to design and programme an autonomous robot capable of quickly and precisely triangulating high frequency acoustic signals using a multi-microphone array and real-time signal processing using an Arduino</p>
-                <div class="flex flex-wrap gap-2 pt-2">
-                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">C++</span>
-                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Arduino</span>
-                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Signal Processing</span>
-                </div>
-            </div>
-
-            <div onclick="openModal('formula')" class="project-card mechanical cursor-pointer bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 space-y-4 hover:border-cyan-500/50 hover:bg-slate-800/80 transition group">
-                <div class="flex justify-between items-start">
-                    <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-full">Aerodynamics & Manufacturing</span>
-                    <i class="fa-solid fa-arrow-up-right-from-square text-slate-500 group-hover:text-cyan-400 transition"></i>
-                </div>
-                <h3 class="text-xl font-bold group-hover:text-cyan-400 transition">Formula Student Bodywork Manufacturing</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">Engineered lightweight composite aerodynamic components for a race car. Managed the complete lifecycle from surface modelling in CAD to epoxy tooling board mould creation, carbon layup and integration.</p>
-                <div class="flex flex-wrap gap-2 pt-2">
-                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">CAD / SolidWorks</span>
-                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Composites</span>
-                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Manufacturing</span>
-                </div>
-            </div>
-
-            <div onclick="openModal('alloy')" class="project-card mechanical cursor-pointer bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 space-y-4 hover:border-cyan-500/50 hover:bg-slate-800/80 transition group">
-                <div class="flex justify-between items-start">
-                    <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-full">Materials Science</span>
-                    <i class="fa-solid fa-arrow-up-right-from-square text-slate-500 group-hover:text-cyan-400 transition"></i>
-                </div>
-                <h3 class="text-xl font-bold group-hover:text-cyan-400 transition">Aluminium Alloy Research Project</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">Conducted thermal cycling and mechanical loading on aluminium alloy 6082 samples that had undergone various heat treatments to evaluate their performance within low earth orbit conditions.</p>
-                <div class="flex flex-wrap gap-2 pt-2">
-                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Alloy Heat Treatment</span>
-                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Vacuum Design</span>
-                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Materials Testing</span>
-                </div>
-            </div>
-
-            <div onclick="openModal('vibrations')" class="project-card software cursor-pointer bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 space-y-4 hover:border-cyan-500/50 hover:bg-slate-800/80 transition group">
-                <div class="flex justify-between items-start">
-                    <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-full">Vibration Analysis</span>
-                    <i class="fa-solid fa-arrow-up-right-from-square text-slate-500 group-hover:text-cyan-400 transition"></i>
-                </div>
-                <h3 class="text-xl font-bold group-hover:text-cyan-400 transition">Vibration Analysis of an Electron Beamline</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">Collaborated with beamline scientists to investigate the primary sources of vibrations on an electron beamline using state-of-the-art portable vibration analysis tools. This was followed by analysis of large sets of vibration data using Python to perform integration calculations and output PSD graphs.</p>
-                <div class="flex flex-wrap gap-2 pt-2">
-                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Vibration Analysis</span>
-                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Python</span>
-                    <span class="text-xs bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">Experimental Methods</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="py-20 px-6 max-w-5xl mx-auto border-t border-slate-800">
-        <h2 class="text-3xl font-bold tracking-tight mb-6">About & Experience</h2>
-        <div class="bg-slate-800/30 border border-slate-800 p-6 md:p-8 rounded-xl space-y-4 text-slate-300 leading-relaxed text-sm">
-            <p>
-                I am a final-year mechanical engineering student at the University of Southampton graduating in July 2027. I gained hands-on experience 
-                in vacuum-system design, vibration analysis, and CAD during an industrial placement at the STFC between July 2025 and July 2026.
-                As part of the vibration analysis project, I had to develop procedural documentation for a vibration analyser as well as a Python script
-                with an in-built GUI to analyse and graphically present large data sets for future users. During my time at university, I have held two 
-                leadership roles in Formula Student which have demonstrated an ability to guide small teams, deliver lightweight composite
-                structures informed through simulations, and produce clear technical documentation. I am proficient in Ansys Mechanical,
-                Star CCM+, MATLAB, Python, and Excel and have used these extensively throughout my time at university. Outside of university, I am a keen
-                triathlete. I have completed two Ironman 70.3 events in the past year with a PB of 5 hours 20 minutes. This test of endurance has built
-                upon several soft skills that I look to carry over to my professional life.
-            </p>
-        </div>
-    </section>
-
-    <section id="skills" class="py-20 px-6 max-w-5xl mx-auto border-t border-slate-800">
-        <h2 class="text-3xl font-bold tracking-tight mb-8">Technical Toolkit</h2>
-        <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-slate-800/30 border border-slate-800 p-6 rounded-xl">
-                <h3 class="text-lg font-semibold text-cyan-400 mb-4">Mechanical & Design</h3>
-                <ul class="space-y-2 text-slate-300 text-sm">
-                    <li>• SolidWorks, Solidedge and Creo CAD Systems</li>
-                    <li>• Composite Layup & Tooling Design</li>
-                    <li>• Vacuum Chamber Design & Materials Characterisation</li>
-                    <li>• Simulation Optimised Design (CFD, FEA)</li>
-                </ul>
-            </div>
-            <div class="bg-slate-800/30 border border-slate-800 p-6 rounded-xl">
-                <h3 class="text-lg font-semibold text-cyan-400 mb-4">Software & Hardware</h3>
-                <ul class="space-y-2 text-slate-300 text-sm">
-                    <li>• C++ (Arduino, Microcontrollers)</li>
-                    <li>• Python (Data Analysis & Scripting)</li>
-                    <li>• MATLAB / Simulink</li>
-                    <li>• Version Control through GitHub</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-20 px-6 max-w-5xl mx-auto text-center border-t border-slate-800">
-        <h2 class="text-3xl font-bold tracking-tight">Let's Connect</h2>
-        <p class="text-slate-400 mt-2 mb-8">Open to mechanical, mechatronics, and software engineering opportunities.</p>
-        <div class="flex justify-center gap-6 text-xl">
-            <a href="mailto:danielbassett1706@gmail.com" class="text-slate-400 hover:text-cyan-400 transition"><i class="fa-solid fa-envelope"></i></a>
-            <a href="https://www.linkedin.com/in/daniel-bassett-5aa94621b/" target="_blank" class="text-slate-400 hover:text-cyan-400 transition"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="https://github.com/bassettd04" target="_blank" class="text-slate-400 hover:text-cyan-400 transition"><i class="fa-brands fa-github"></i></a>
-        </div>
-    </section>
-
-    <!-- Modal Popup Overlay -->
-    <div id="projectModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md hidden z-50 flex items-center justify-center p-4 md:p-8">
-        <div class="bg-slate-950 border border-slate-800 rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden flex flex-col md:flex-row relative shadow-2xl">
-            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 text-slate-400 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-slate-700/50 w-9 h-9 rounded-full flex items-center justify-center transition">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-
-            <!-- Left Panel -->
-            <div class="w-full md:w-1/2 bg-slate-900/50 p-6 flex flex-col justify-between border-b md:border-b-0 md:border-r border-slate-800 min-h-[350px] md:min-h-[480px]">
-                <div class="w-full flex-1 flex items-center justify-center overflow-hidden rounded-xl bg-slate-950 border border-slate-800/80 p-2">
-                    <img id="modalImage" src="" alt="Project Media" class="max-h-[300px] md:max-h-[360px] w-auto h-auto object-contain transition-all duration-300" />
-                </div>
-                <div class="py-3 text-center">
-                    <p id="modalImageCaption" class="text-xs text-slate-300 font-medium italic"></p>
-                </div>
-                <div class="flex justify-between items-center border-t border-slate-800/80 pt-3">
-                    <button onclick="prevImage()" class="text-slate-400 hover:text-cyan-400 text-xl px-3 py-1 rounded bg-slate-800/40 hover:bg-slate-800 border border-slate-700/50 transition">
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </button>
-                    <span id="imageTracker" class="text-xs text-slate-500 font-mono">1 / 1</span>
-                    <button onclick="nextImage()" class="text-slate-400 hover:text-cyan-400 text-xl px-3 py-1 rounded bg-slate-800/40 hover:bg-slate-800 border border-slate-700/50 transition">
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Right Panel -->
-            <div class="w-full md:w-1/2 p-6 md:p-8 overflow-y-auto space-y-6">
-                <div>
-                    <h3 id="modalTitle" class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">Project Title</h3>
-                    <div id="modalTags" class="flex flex-wrap gap-2 mt-3"></div>
-                </div>
-
-                <div class="space-y-2">
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-cyan-400">Executive Summary</h4>
-                    <p id="modalSummary" class="text-slate-300 text-sm leading-relaxed"></p>
-                </div>
-
-                <div class="space-y-2 border-t border-slate-800/80 pt-4">
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-cyan-400">Key Highlights</h4>
-                    <ul id="modalHighlights" class="space-y-2 text-slate-300 text-sm"></ul>
-                </div>
-
-                <!-- DYNAMIC DISSERTATION LINK CONTAINER -->
-                <div id="modalLinkContainer" class="pt-4 border-t border-slate-800/80 hidden">
-                    <a id="modalLink" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-slate-900 border border-slate-700 text-cyan-400 hover:bg-slate-800 hover:border-cyan-400 px-4 py-2.5 rounded-lg text-xs font-semibold transition">
-                        <i class="fa-solid fa-file-pdf"></i> Read Full Report (PDF)
-                    </a>
-                </div>
-            </div>
-        </div>
+    <div class="frame" aria-hidden="true">
+        <div class="zones zones--top"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
+        <div class="zones zones--left"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span></div>
     </div>
 
-    <!-- Scripts -->
+    <div class="sheet-body">
+        <header class="strip">
+            <a href="#top" class="strip__name">Daniel Bassett</a>
+            <nav aria-label="Sections">
+                <a href="#projects">Projects</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </header>
+
+        <main id="top">
+            <section class="hero">
+                <div class="dimensioned">
+                    <h1><span class="line">Daniel</span><span class="line">Bassett</span></h1>
+                    <p class="dim">
+                        <span class="dim__line" aria-hidden="true"></span>
+                        <span class="dim__label">Mechanical Engineer</span>
+                    </p>
+                </div>
+                <p class="hero__lede">
+                    Specialising in mechanical design, composite manufacturing, materials testing, and embedded control systems.
+                </p>
+                <div class="actions">
+                    <a href="#projects" class="btn btn--primary">View Work</a>
+                    <a href="Assets/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn">
+                        <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> CV
+                    </a>
+                    <a href="#contact" class="btn">Get in Touch</a>
+                </div>
+            </section>
+
+            <section id="projects">
+                <div class="section-head">
+                    <div>
+                        <h2>Featured Projects</h2>
+                        <p>Filter by domain or click any project to view full documentation.</p>
+                    </div>
+                    <div class="filter" role="group" aria-label="Filter projects">
+                        <button type="button" data-filter="all" aria-pressed="true">All</button>
+                        <button type="button" data-filter="software" aria-pressed="false">Software & Embedded</button>
+                        <button type="button" data-filter="mechanical" aria-pressed="false">Mechanical & Materials</button>
+                    </div>
+                </div>
+
+                <ul class="register">
+                    <li data-group="software">
+                        <button type="button" class="project" data-project="robot">
+                            <div class="project__fig"><img src="Assets/Soundseeking/robot.jpeg" alt="Plan view of final robot design" loading="lazy"></div>
+                            <div>
+                                <p class="project__domain">Embedded Systems</p>
+                                <h3>Arduino Sound-Seeking Robot</h3>
+                                <p class="project__text">Led a project to design and programme an autonomous robot capable of quickly and precisely triangulating high frequency acoustic signals using a multi-microphone array and real-time signal processing using an Arduino</p>
+                                <ul class="tags"><li>C++</li><li>Arduino</li><li>Signal Processing</li></ul>
+                            </div>
+                        </button>
+                    </li>
+
+                    <li data-group="mechanical">
+                        <button type="button" class="project" data-project="formula">
+                            <div class="project__fig"><img src="Assets/Bodywork/statics.jpg" alt="The finished car at FSUK 2025" loading="lazy"></div>
+                            <div>
+                                <p class="project__domain">Aerodynamics & Manufacturing</p>
+                                <h3>Formula Student Bodywork Manufacturing</h3>
+                                <p class="project__text">Engineered lightweight composite aerodynamic components for a race car. Managed the complete lifecycle from surface modelling in CAD to epoxy tooling board mould creation, carbon layup and integration.</p>
+                                <ul class="tags"><li>CAD / SolidWorks</li><li>Composites</li><li>Manufacturing</li></ul>
+                            </div>
+                        </button>
+                    </li>
+
+                    <li data-group="mechanical">
+                        <button type="button" class="project" data-project="alloy">
+                            <div class="project__fig"><img src="Assets/IP/CAD.png" alt="A CAD model of the hermetic chamber designed to replicate LEO conditions" loading="lazy"></div>
+                            <div>
+                                <p class="project__domain">Materials Science</p>
+                                <h3>Aluminium Alloy Research Project</h3>
+                                <p class="project__text">Conducted thermal cycling and mechanical loading on aluminium alloy 6082 samples that had undergone various heat treatments to evaluate their performance within low earth orbit conditions.</p>
+                                <ul class="tags"><li>Alloy Heat Treatment</li><li>Vacuum Design</li><li>Materials Testing</li></ul>
+                            </div>
+                        </button>
+                    </li>
+
+                    <li data-group="software">
+                        <button type="button" class="project" data-project="vibrations">
+                            <div class="project__fig"><img src="Assets/STFC/beamline.jpeg" alt="A section of the CLARA beamline that was tested for high vibrations" loading="lazy"></div>
+                            <div>
+                                <p class="project__domain">Vibration Analysis</p>
+                                <h3>Vibration Analysis of an Electron Beamline</h3>
+                                <p class="project__text">Collaborated with beamline scientists to investigate the primary sources of vibrations on an electron beamline using state-of-the-art portable vibration analysis tools. This was followed by analysis of large sets of vibration data using Python to perform integration calculations and output PSD graphs.</p>
+                                <ul class="tags"><li>Vibration Analysis</li><li>Python</li><li>Experimental Methods</li></ul>
+                            </div>
+                        </button>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="about" class="about">
+                <div class="section-head"><h2>About & Experience</h2></div>
+                <p>
+                    I am a final-year mechanical engineering student at the University of Southampton graduating in July 2027. I gained hands-on experience
+                    in vacuum-system design, vibration analysis, and CAD during an industrial placement at the STFC between July 2025 and July 2026.
+                    As part of the vibration analysis project, I had to develop procedural documentation for a vibration analyser as well as a Python script
+                    with an in-built GUI to analyse and graphically present large data sets for future users. During my time at university, I have held two
+                    leadership roles in Formula Student which have demonstrated an ability to guide small teams, deliver lightweight composite
+                    structures informed through simulations, and produce clear technical documentation. I am proficient in Ansys Mechanical,
+                    Star CCM+, MATLAB, Python, and Excel and have used these extensively throughout my time at university. Outside of university, I am a keen
+                    triathlete. I have completed two Ironman 70.3 events in the past year with a PB of 5 hours 20 minutes. This test of endurance has built
+                    upon several soft skills that I look to carry over to my professional life.
+                </p>
+            </section>
+
+            <section id="skills">
+                <div class="section-head"><h2>Technical Toolkit</h2></div>
+                <table class="bom">
+                    <thead>
+                        <tr><th scope="col" class="item">Item</th><th scope="col">Description</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><th scope="rowgroup" colspan="2">Mechanical & Design</th></tr>
+                        <tr><td class="item"><span>1</span></td><td>SolidWorks, Solidedge and Creo CAD Systems</td></tr>
+                        <tr><td class="item"><span>2</span></td><td>Composite Layup & Tooling Design</td></tr>
+                        <tr><td class="item"><span>3</span></td><td>Vacuum Chamber Design & Materials Characterisation</td></tr>
+                        <tr><td class="item"><span>4</span></td><td>Simulation Optimised Design (CFD, FEA)</td></tr>
+                    </tbody>
+                    <tbody>
+                        <tr><th scope="rowgroup" colspan="2">Software & Hardware</th></tr>
+                        <tr><td class="item"><span>5</span></td><td>C++ (Arduino, Microcontrollers)</td></tr>
+                        <tr><td class="item"><span>6</span></td><td>Python (Data Analysis & Scripting)</td></tr>
+                        <tr><td class="item"><span>7</span></td><td>MATLAB / Simulink</td></tr>
+                        <tr><td class="item"><span>8</span></td><td>Version Control through GitHub</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="contact">
+                <div class="titleblock">
+                    <div class="titleblock__main">
+                        <h2>Let's Connect</h2>
+                        <p>Open to mechanical, mechatronics, and software engineering opportunities.</p>
+                    </div>
+                    <div class="titleblock__links">
+                        <a href="mailto:danielbassett1706@gmail.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Email</a>
+                        <a href="https://www.linkedin.com/in/daniel-bassett-5aa94621b/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
+                        <a href="https://github.com/bassettd04" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="sheet-foot">© Daniel Bassett</footer>
+    </div>
+
+    <!-- Project detail sheet -->
+    <dialog id="projectModal" class="detail" aria-labelledby="modalTitle">
+        <div class="detail__media">
+            <div class="detail__stage" id="modalStage"></div>
+            <p id="modalImageCaption" class="detail__caption"></p>
+            <div class="detail__nav">
+                <button type="button" id="prevBtn" aria-label="Previous image"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+                <span id="imageTracker" class="detail__count">1 / 1</span>
+                <button type="button" id="nextBtn" aria-label="Next image"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+            </div>
+        </div>
+
+        <div class="detail__text">
+            <button type="button" class="detail__close" id="closeBtn" aria-label="Close"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            <h3 id="modalTitle">Project Title</h3>
+            <div id="modalTags" class="tags"></div>
+
+            <h4>Executive Summary</h4>
+            <p id="modalSummary"></p>
+
+            <h4>Key Highlights</h4>
+            <ul id="modalHighlights" class="highlights"></ul>
+
+            <div id="modalLinkContainer" class="detail__link" hidden>
+                <a id="modalLink" href="#" target="_blank" rel="noopener noreferrer" class="btn">
+                    <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Read Full Report (PDF)
+                </a>
+            </div>
+        </div>
+    </dialog>
+
     <script>
         const projectData = {
             robot: {
@@ -281,13 +747,13 @@
                 tags: ["Vibration Analysis", "Python", "Experimental Methods", "Cross-Department Collaboration"],
                 link: "Assets/STFC/coco_user_guide.pdf",
                 images: [
-                    { 
-                        url: "Assets/STFC/beamline.jpeg", 
-                        caption: "A section of the CLARA beamline that was tested for high vibrations" 
+                    {
+                        url: "Assets/STFC/beamline.jpeg",
+                        caption: "A section of the CLARA beamline that was tested for high vibrations"
                     },
-                    { 
-                        url: "Assets/STFC/tutorial.mp4", 
-                        caption: "A clip from the tutorial video on the CoCo-80X Signal Analyser" 
+                    {
+                        url: "Assets/STFC/tutorial.mp4",
+                        caption: "A clip from the tutorial video on the CoCo-80X Signal Analyser"
                     }
                 ],
                 summary: "This was my primary project for the last 4 months of my time at the STFC where I aimed to develop procedural documentation for the Crystal Instruments CoCo-80X Signal Analyser for future use within the technology department. I was also tasked with creating a tutorial video on the device and a Python script with a GUI for others to quickly and easily analyse large data sets of vibration data and represent these graphically. As part of this I also worked to analyse vibrations on the CLARA electron beamline.",
@@ -299,87 +765,59 @@
             }
         };
 
+        const modal = document.getElementById('projectModal');
         let currentProject = null;
         let currentImageIndex = 0;
 
         function filterProjects(category) {
-            const cards = document.querySelectorAll('.project-card');
-            const buttons = document.querySelectorAll('.filter-btn');
-
-            buttons.forEach(btn => {
-                if (btn.getAttribute('data-filter') === category) {
-                    btn.classList.add('bg-cyan-500', 'text-slate-900');
-                    btn.classList.remove('text-slate-400');
-                } else {
-                    btn.classList.remove('bg-cyan-500', 'text-slate-900');
-                    btn.classList.add('text-slate-400');
-                }
+            document.querySelectorAll('.filter button').forEach(btn => {
+                btn.setAttribute('aria-pressed', btn.dataset.filter === category);
             });
-
-            cards.forEach(card => {
-                if (category === 'all' || card.classList.contains(category)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
+            document.querySelectorAll('.register li').forEach(item => {
+                item.hidden = !(category === 'all' || item.dataset.group === category);
             });
         }
 
         function openModal(projectId) {
             currentProject = projectData[projectId];
             if (!currentProject) return;
-
             currentImageIndex = 0;
 
             document.getElementById('modalTitle').innerText = currentProject.title;
             document.getElementById('modalSummary').innerText = currentProject.summary;
+            document.getElementById('modalTags').innerHTML = currentProject.tags.map(tag => `<span>${tag}</span>`).join('');
+            document.getElementById('modalHighlights').innerHTML = currentProject.highlights.map(item => `<li>${item}</li>`).join('');
 
-            const tagsContainer = document.getElementById('modalTags');
-            tagsContainer.innerHTML = currentProject.tags.map(tag => 
-                `<span class="text-xs bg-slate-900 border border-slate-800 px-3 py-1 rounded-full text-slate-400 font-mono">${tag}</span>`
-            ).join('');
-
-            const highlightsContainer = document.getElementById('modalHighlights');
-            highlightsContainer.innerHTML = currentProject.highlights.map(item => 
-                `<li class="flex items-start gap-2"><span class="text-cyan-400 font-bold">•</span><span>${item}</span></li>`
-            ).join('');
-
-            // Dynamic Link Button Logic
             const linkContainer = document.getElementById('modalLinkContainer');
-            const linkBtn = document.getElementById('modalLink');
             if (currentProject.link) {
-                linkBtn.href = currentProject.link;
-                linkContainer.classList.remove('hidden');
+                document.getElementById('modalLink').href = currentProject.link;
+                linkContainer.hidden = false;
             } else {
-                linkContainer.classList.add('hidden');
+                linkContainer.hidden = true;
             }
 
-            updateModalImage();
+            const multiple = currentProject.images.length > 1;
+            document.getElementById('prevBtn').disabled = !multiple;
+            document.getElementById('nextBtn').disabled = !multiple;
 
-            document.getElementById('projectModal').classList.remove('hidden');
+            updateModalImage();
+            modal.showModal();
+            modal.querySelector('.detail__text').scrollTop = 0;
             document.body.style.overflow = 'hidden';
         }
 
         function updateModalImage() {
             if (!currentProject || !currentProject.images.length) return;
-        
-            const mediaObj = currentProject.images[currentImageIndex];
-            const container = document.getElementById('modalImage').parentElement;
-            
-            if (mediaObj.url.toLowerCase().endsWith('.mp4')) {
-                container.innerHTML = `
-                    <video id="modalImage" controls autoplay loop muted class="max-h-[300px] md:max-h-[360px] w-auto h-auto rounded-lg object-contain">
-                        <source src="${mediaObj.url}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                `;
+            const media = currentProject.images[currentImageIndex];
+            const stage = document.getElementById('modalStage');
+
+            if (media.url.toLowerCase().endsWith('.mp4')) {
+                stage.innerHTML = `<video controls autoplay loop muted playsinline><source src="${media.url}" type="video/mp4">Your browser does not support the video tag.</video>`;
             } else {
-                container.innerHTML = `
-                    <img id="modalImage" src="${mediaObj.url}" alt="Project Media" class="max-h-[300px] md:max-h-[360px] w-auto h-auto object-contain transition-all duration-300" />
-                `;
+                stage.innerHTML = `<img src="${media.url}" alt="${media.caption || 'Project Media'}">`;
             }
-        
-            document.getElementById('modalImageCaption').innerText = mediaObj.caption || '';
+
+            document.getElementById('modalImageCaption').innerText = media.caption || '';
             document.getElementById('imageTracker').innerText = `${currentImageIndex + 1} / ${currentProject.images.length}`;
         }
 
@@ -396,12 +834,23 @@
         }
 
         function closeModal() {
-            document.getElementById('projectModal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
+            modal.close();
         }
 
-        document.getElementById('projectModal').addEventListener('click', function(e) {
-            if (e.target === this) closeModal();
+        document.querySelectorAll('.filter button').forEach(btn => btn.addEventListener('click', () => filterProjects(btn.dataset.filter)));
+        document.querySelectorAll('.project').forEach(btn => btn.addEventListener('click', () => openModal(btn.dataset.project)));
+        document.getElementById('prevBtn').addEventListener('click', prevImage);
+        document.getElementById('nextBtn').addEventListener('click', nextImage);
+        document.getElementById('closeBtn').addEventListener('click', closeModal);
+
+        modal.addEventListener('close', () => {
+            document.getElementById('modalStage').innerHTML = '';
+            document.body.style.overflow = '';
+        });
+        modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+        modal.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'ArrowLeft') prevImage();
         });
     </script>
 </body>
